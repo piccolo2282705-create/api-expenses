@@ -1,12 +1,16 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const app = express();
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+
+// Serve static files from public folder
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Sample expense data with casual expenses
 let expenses = [
@@ -109,4 +113,11 @@ app.get('/api/summary', (req, res) => {
   });
 });
 
-module.exports = app;
+// Serve index.html for all non-API routes (client-side routing)
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
+});
