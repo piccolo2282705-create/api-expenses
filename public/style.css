@@ -12,52 +12,90 @@ body {
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     background: white;
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
     overflow: hidden;
 }
 
 header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    padding: 30px 20px;
+    padding: 40px 20px;
     text-align: center;
 }
 
 header h1 {
-    font-size: 2.5em;
+    font-size: 2.8em;
     margin: 0;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.tagline {
+    font-size: 1.1em;
+    opacity: 0.95;
+    font-weight: 300;
 }
 
 /* Summary Section */
 .summary-section {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     padding: 30px 20px;
-    background: #f8f9fa;
+    background: linear-gradient(to bottom, #f8f9fa, #ffffff);
 }
 
 .summary-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    text-align: center;
+    border: 2px solid transparent;
+    transition: all 0.3s;
 }
 
-.summary-card h3 {
+.summary-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.summary-card.card-primary {
+    border-color: #667eea;
+}
+
+.summary-card.card-secondary {
+    border-color: #764ba2;
+}
+
+.summary-card.card-success {
+    border-color: #10b981;
+}
+
+.summary-card.card-warning {
+    border-color: #f59e0b;
+}
+
+.summary-icon {
+    font-size: 3em;
+}
+
+.summary-content h3 {
     color: #666;
-    font-size: 0.9em;
-    margin-bottom: 10px;
+    font-size: 0.85em;
+    margin-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    font-weight: 600;
 }
 
-.total-amount, .expense-count {
+.total-amount, .expense-count, #averageAmount, #maxAmount {
     font-size: 2em;
     font-weight: bold;
     color: #667eea;
@@ -72,13 +110,14 @@ header h1 {
 
 .form-section h2 {
     color: #333;
-    margin-bottom: 20px;
-    font-size: 1.5em;
+    margin-bottom: 25px;
+    font-size: 1.6em;
+    font-weight: 700;
 }
 
 #expenseForm {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 15px;
     align-items: end;
 }
@@ -92,30 +131,32 @@ header h1 {
     margin-bottom: 8px;
     color: #333;
     font-weight: 600;
-    font-size: 0.9em;
+    font-size: 0.95em;
 }
 
 .form-group input,
 .form-group select {
-    padding: 10px 12px;
+    padding: 11px 14px;
     border: 2px solid #e0e0e0;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 1em;
-    transition: border-color 0.3s;
+    transition: all 0.3s;
+    background: white;
 }
 
 .form-group input:focus,
 .form-group select:focus {
     outline: none;
     border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
 .btn {
-    padding: 10px 20px;
+    padding: 11px 24px;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 1em;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.3s;
 }
@@ -127,13 +168,17 @@ header h1 {
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
 }
 
 .btn-danger {
     background: #ff6b6b;
     color: white;
-    padding: 6px 12px;
+    padding: 6px 14px;
     font-size: 0.85em;
 }
 
@@ -143,15 +188,16 @@ header h1 {
 
 /* Filter Section */
 .filter-section {
-    padding: 20px;
+    padding: 25px 20px;
     background: #f8f9fa;
     border-bottom: 1px solid #eee;
 }
 
 .filter-section h2 {
     color: #333;
-    margin-bottom: 15px;
-    font-size: 1.2em;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+    font-weight: 700;
 }
 
 .filter-buttons {
@@ -161,14 +207,15 @@ header h1 {
 }
 
 .filter-btn {
-    padding: 8px 16px;
+    padding: 10px 20px;
     background: white;
     border: 2px solid #e0e0e0;
-    border-radius: 20px;
+    border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s;
-    font-size: 0.9em;
+    font-size: 0.95em;
     font-weight: 600;
+    color: #666;
 }
 
 .filter-btn:hover {
@@ -191,8 +238,9 @@ header h1 {
 
 .expenses-section h2 {
     color: #333;
-    margin-bottom: 20px;
-    font-size: 1.5em;
+    margin-bottom: 25px;
+    font-size: 1.6em;
+    font-weight: 700;
 }
 
 .expenses-list {
@@ -204,16 +252,17 @@ header h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px;
+    padding: 16px 20px;
     background: #f8f9fa;
-    border-radius: 8px;
-    border-left: 4px solid #667eea;
+    border-radius: 10px;
+    border-left: 5px solid #667eea;
     transition: all 0.3s;
 }
 
 .expense-item:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
     transform: translateX(5px);
+    background: #f0f1f8;
 }
 
 .expense-info {
@@ -221,33 +270,36 @@ header h1 {
 }
 
 .expense-description {
-    font-weight: 600;
+    font-weight: 700;
     color: #333;
     font-size: 1.05em;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
 
 .expense-meta {
     font-size: 0.85em;
     color: #999;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .expense-category {
     display: inline-block;
-    background: #667eea;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 0.8em;
-    margin-right: 10px;
+    padding: 4px 12px;
+    border-radius: 14px;
+    font-size: 0.75em;
+    font-weight: 600;
 }
 
 .expense-amount {
-    font-size: 1.3em;
-    font-weight: bold;
+    font-size: 1.35em;
+    font-weight: 800;
     color: #667eea;
-    margin: 0 20px;
-    min-width: 80px;
+    margin: 0 25px;
+    min-width: 85px;
     text-align: right;
 }
 
@@ -264,8 +316,9 @@ header h1 {
 
 .breakdown-section h2 {
     color: #333;
-    margin-bottom: 20px;
-    font-size: 1.5em;
+    margin-bottom: 25px;
+    font-size: 1.6em;
+    font-weight: 700;
 }
 
 .breakdown-list {
@@ -274,30 +327,41 @@ header h1 {
 }
 
 .breakdown-item {
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s;
+}
+
+.breakdown-item:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.breakdown-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 8px;
+    margin-bottom: 12px;
 }
 
 .breakdown-category {
-    font-weight: 600;
+    font-weight: 700;
     color: #333;
+    font-size: 1.05em;
 }
 
 .breakdown-total {
-    font-size: 1.2em;
-    font-weight: bold;
+    font-size: 1.25em;
+    font-weight: 800;
     color: #667eea;
 }
 
 .progress-bar {
-    height: 8px;
+    height: 10px;
     background: #e0e0e0;
-    border-radius: 4px;
-    margin-top: 8px;
+    border-radius: 5px;
     overflow: hidden;
 }
 
@@ -309,15 +373,19 @@ header h1 {
 
 .empty-state {
     text-align: center;
-    padding: 40px 20px;
+    padding: 50px 20px;
     color: #999;
 }
 
 .empty-state p {
-    font-size: 1.1em;
+    font-size: 1.15em;
 }
 
 @media (max-width: 768px) {
+    header h1 {
+        font-size: 2em;
+    }
+
     .summary-section {
         grid-template-columns: 1fr;
     }
@@ -334,6 +402,7 @@ header h1 {
     .expense-amount {
         width: 100%;
         text-align: right;
+        margin: 10px 0 0 0;
     }
 
     .filter-buttons {
@@ -341,7 +410,5 @@ header h1 {
     }
 
     .filter-btn {
-        padding: 6px 12px;
-        font-size: 0.8em;
-    }
-}
+        padding: 8px 16px;
+        font-size: 0.85em;

@@ -12,21 +12,47 @@ app.use(bodyParser.json());
 // Serve static files from public folder
 app.use(express.static(path.join(__dirname, '../public')));
 
-// Sample expense data with casual expenses
-let expenses = [
-  { id: 1, description: "Coffee", amount: 4.50, category: "Food", date: "2025-12-10" },
-  { id: 2, description: "Lunch", amount: 12.75, category: "Food", date: "2025-12-10" },
-  { id: 3, description: "Gas", amount: 45.60, category: "Transport", date: "2025-12-09" },
-  { id: 4, description: "Movie ticket", amount: 15.99, category: "Entertainment", date: "2025-12-08" },
-  { id: 5, description: "Gym membership", amount: 29.99, category: "Health", date: "2025-12-07" },
-  { id: 6, description: "Dinner", amount: 38.25, category: "Food", date: "2025-12-06" },
-  { id: 7, description: "Books", amount: 23.47, category: "Education", date: "2025-12-05" },
-  { id: 8, description: "Phone bill", amount: 65.00, category: "Utilities", date: "2025-12-01" },
-  { id: 9, description: "Snacks", amount: 7.32, category: "Food", date: "2025-12-11" },
-  { id: 10, description: "Uber ride", amount: 18.50, category: "Transport", date: "2025-12-11" }
-];
+// Generate random expenses dataset
+function generateRandomExpenses() {
+  const descriptions = {
+    Food: ["Coffee", "Lunch", "Dinner", "Breakfast", "Snacks", "Grocery shopping", "Restaurant", "Pizza", "Burger", "Sushi"],
+    Transport: ["Gas", "Uber ride", "Taxi", "Bus fare", "Parking", "Car maintenance", "Train ticket", "Flight", "Bike repair"],
+    Entertainment: ["Movie ticket", "Concert", "Gaming", "Netflix subscription", "Spotify subscription", "Book", "Video game", "Theme park"],
+    Health: ["Gym membership", "Doctor visit", "Dentist", "Pharmacy", "Yoga class", "Vitamins", "Haircut"],
+    Education: ["Course", "Textbook", "Online class", "Workshop", "Tuition", "Training"],
+    Utilities: ["Phone bill", "Internet", "Electric", "Water bill", "Gas bill", "Wifi"],
+    Shopping: ["Clothes", "Shoes", "Electronics", "Furniture", "Home decor", "Jewelry"]
+  };
 
-let nextId = 11;
+  const categories = Object.keys(descriptions);
+  const expenses = [];
+  let id = 1;
+
+  for (let i = 0; i < 30; i++) {
+    const category = categories[Math.floor(Math.random() * categories.length)];
+    const descriptionList = descriptions[category];
+    const description = descriptionList[Math.floor(Math.random() * descriptionList.length)];
+    const amount = (Math.random() * 100 + 5).toFixed(2);
+    const daysAgo = Math.floor(Math.random() * 60);
+    const date = new Date();
+    date.setDate(date.getDate() - daysAgo);
+    const formattedDate = date.toISOString().split('T')[0];
+
+    expenses.push({
+      id,
+      description,
+      amount: parseFloat(amount),
+      category,
+      date: formattedDate
+    });
+    id++;
+  }
+
+  return expenses;
+}
+
+let expenses = generateRandomExpenses();
+let nextId = expenses.length + 1;
 
 // GET all expenses
 app.get('/api/expenses', (req, res) => {

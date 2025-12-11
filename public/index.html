@@ -3,30 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expense Tracker</title>
+    <title>💰 Expense Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>💰 Expense Tracker</h1>
+            <h1>💰 Smart Expense Tracker</h1>
+            <p class="tagline">Track and manage your spending effortlessly</p>
         </header>
 
         <!-- Summary Section -->
         <div class="summary-section">
-            <div class="summary-card">
-                <h3>Total Expenses</h3>
-                <p class="total-amount" id="totalAmount">$0.00</p>
+            <div class="summary-card card-primary">
+                <div class="summary-icon">💵</div>
+                <div class="summary-content">
+                    <h3>Total Expenses</h3>
+                    <p class="total-amount" id="totalAmount">$0.00</p>
+                </div>
             </div>
-            <div class="summary-card">
-                <h3>Number of Expenses</h3>
-                <p class="expense-count" id="expenseCount">0</p>
+            <div class="summary-card card-secondary">
+                <div class="summary-icon">📊</div>
+                <div class="summary-content">
+                    <h3>Number of Expenses</h3>
+                    <p class="expense-count" id="expenseCount">0</p>
+                </div>
+            </div>
+            <div class="summary-card card-success">
+                <div class="summary-icon">📈</div>
+                <div class="summary-content">
+                    <h3>Average Expense</h3>
+                    <p id="averageAmount">$0.00</p>
+                </div>
+            </div>
+            <div class="summary-card card-warning">
+                <div class="summary-icon">🔝</div>
+                <div class="summary-content">
+                    <h3>Highest Expense</h3>
+                    <p id="maxAmount">$0.00</p>
+                </div>
             </div>
         </div>
 
         <!-- Add Expense Form -->
         <section class="form-section">
-            <h2>Add New Expense</h2>
+            <h2>➕ Add New Expense</h2>
             <form id="expenseForm">
                 <div class="form-group">
                     <label for="description">Description</label>
@@ -42,14 +63,14 @@
                     <label for="category">Category</label>
                     <select id="category" required>
                         <option value="">Select a category</option>
-                        <option value="Food">Food</option>
-                        <option value="Transport">Transport</option>
-                        <option value="Entertainment">Entertainment</option>
-                        <option value="Health">Health</option>
-                        <option value="Education">Education</option>
-                        <option value="Utilities">Utilities</option>
-                        <option value="Shopping">Shopping</option>
-                        <option value="Other">Other</option>
+                        <option value="Food">🍕 Food</option>
+                        <option value="Transport">🚗 Transport</option>
+                        <option value="Entertainment">🎬 Entertainment</option>
+                        <option value="Health">💪 Health</option>
+                        <option value="Education">📚 Education</option>
+                        <option value="Utilities">⚡ Utilities</option>
+                        <option value="Shopping">🛍️ Shopping</option>
+                        <option value="Other">📌 Other</option>
                     </select>
                 </div>
 
@@ -58,28 +79,29 @@
                     <input type="date" id="date" required>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Add Expense</button>
+                <button type="submit" class="btn btn-primary">💾 Add Expense</button>
             </form>
         </section>
 
         <!-- Filter Section -->
         <section class="filter-section">
-            <h2>Filter by Category</h2>
+            <h2>🏷️ Filter by Category</h2>
             <div class="filter-buttons">
                 <button class="filter-btn active" data-category="">All</button>
-                <button class="filter-btn" data-category="Food">Food</button>
-                <button class="filter-btn" data-category="Transport">Transport</button>
-                <button class="filter-btn" data-category="Entertainment">Entertainment</button>
-                <button class="filter-btn" data-category="Health">Health</button>
-                <button class="filter-btn" data-category="Education">Education</button>
-                <button class="filter-btn" data-category="Utilities">Utilities</button>
-                <button class="filter-btn" data-category="Other">Other</button>
+                <button class="filter-btn" data-category="Food">🍕 Food</button>
+                <button class="filter-btn" data-category="Transport">🚗 Transport</button>
+                <button class="filter-btn" data-category="Entertainment">🎬 Entertainment</button>
+                <button class="filter-btn" data-category="Health">💪 Health</button>
+                <button class="filter-btn" data-category="Education">📚 Education</button>
+                <button class="filter-btn" data-category="Utilities">⚡ Utilities</button>
+                <button class="filter-btn" data-category="Shopping">🛍️ Shopping</button>
+                <button class="filter-btn" data-category="Other">📌 Other</button>
             </div>
         </section>
 
         <!-- Expenses List -->
         <section class="expenses-section">
-            <h2>Expenses List</h2>
+            <h2>📋 Recent Expenses</h2>
             <div id="expensesList" class="expenses-list">
                 <!-- Expenses will be loaded here -->
             </div>
@@ -87,12 +109,7 @@
 
         <!-- Category Breakdown -->
         <section class="breakdown-section">
-            <h2>Breakdown by Category</h2>
-            <div id="categoryBreakdown" class="breakdown-list">
-                <!-- Category breakdown will be loaded here -->
-            </div>
-        </section>
-    </div>
+            <h2>📊 Breakdown by Category</h2>
 
     <script src="script.js"></script>
 </body>

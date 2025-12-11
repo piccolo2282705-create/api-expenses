@@ -137,18 +137,39 @@ async function deleteExpense(id) {
 // Load and display summary
 async function loadSummary() {
     try {
-        const response = await fetch(`${API_URL}/summary`);
-        const summary = await response.json();
+        const response = await fetch(`${API_URL}/expenses`);
+        const expenses = await response.json();
 
-        // Update total
-        document.getElementById('totalAmount').textContent = 
-            `$${summary.total.toFixed(2)}`;
+        if (expenses.length === 0) {
+            document.getElementById('totalAmount').textContent = '$0.00';
+            document.getElementById('expenseCount').textContent = '0';
+            document.getElementById('averageAmount').textContent = '$0.00';
+            document.getElementById('maxAmount').textContent = '$0.00';
+            displayBreakdown({}, 0);
+            return;
+        }
 
-        // Update count
-        document.getElementById('expenseCount').textContent = summary.count;
+        // Calculate totals
+        const total = expenses.reduce((sum, e) => sum + parseFloat(e.amount), 0);
+        const average = expenses.length > 0 ? total / expenses.length : 0;
+        const max = Math.max(...expenses.map(e => parseFloat(e.amount)));
 
-        // Display category breakdown
-        displayBreakdown(summary.byCategory, summary.total);
+        // Update UI
+        document.getElementById('totalAmount').textContent = `$${total.toFixed(2)}`;
+        document.getElementById('expenseCount').textContent = expenses.length;
+        document.getElementById('averageAmount').textContent = `$${average.toFixed(2)}`;
+        document.getElementById('maxAmount').textContent = `$${max.toFixed(2)}`;
+
+        // Group by category
+        const byCategory = {};
+        expenses.forEach(expense => {
+            if (!byCategory[expense.category]) {
+                byCategory[expense.category] = 0;
+            }
+            byCategory[expense.category] += parseFloat(expense.amount);
+        });
+
+        displayBreakdown(byCategory, total);
     } catch (error) {
         console.error('Error loading summary:', error);
     }
@@ -171,13 +192,16 @@ function displayBreakdown(byCategory, total) {
         const percentage = total > 0 ? (amount / total) * 100 : 0;
         return `
             <div class="breakdown-item">
-                <div>
+                <div class="breakdown-header">
                     <div class="breakdown-category">${escapeHtml(category)}</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: ${percentage}%"></div>
-                    </div>
+                    <div class="breakdown-total">$${parseFloat(amount).toFixed(2)}</div>
                 </div>
-                <div class="breakdown-total">$${parseFloat(amount).toFixed(2)}</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: ${percentage}%"></div>
+                </div>
+                <small style="color: #999; margin-top: 5px;">
+                    ${percentage.toFixed(1)}% of total
+                </small>
             </div>
         `;
     }).join('');
